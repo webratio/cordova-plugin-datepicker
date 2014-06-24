@@ -4,7 +4,7 @@
  * It can now accept `min` and `max` dates for DatePicker.
  */
 
-package com.plugin.datepicker;
+package com.sharinglabs.cordova.plugin.datepicker;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -136,11 +136,11 @@ public class DatePickerPlugin extends CordovaPlugin {
 						dateDialog.setCancelable(true);
 						dateDialog.setCanceledOnTouchOutside(false);
 						dateDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-				            @Override
-				            public void onClick(DialogInterface dialog, int which) {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
 								callbackContext.success("cancel");
-				            }
-				        });
+							}
+						});
 						dateDialog.setOnKeyListener(new Dialog.OnKeyListener() {
 							@Override
 							public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
@@ -174,28 +174,28 @@ public class DatePickerPlugin extends CordovaPlugin {
 						endDate.setTimeInMillis(maxDate);
 
 						final int minYear = startDate.get(Calendar.YEAR);
-					    final int minMonth = startDate.get(Calendar.MONTH);
-					    final int minDay = startDate.get(Calendar.DAY_OF_MONTH);
-					    final int maxYear = endDate.get(Calendar.YEAR);
-					    final int maxMonth = endDate.get(Calendar.MONTH);
-					    final int maxDay = endDate.get(Calendar.DAY_OF_MONTH);
+						final int minMonth = startDate.get(Calendar.MONTH);
+						final int minDay = startDate.get(Calendar.DAY_OF_MONTH);
+						final int maxYear = endDate.get(Calendar.YEAR);
+						final int maxMonth = endDate.get(Calendar.MONTH);
+						final int maxDay = endDate.get(Calendar.DAY_OF_MONTH);
 
 						if(startDate !=null || endDate != null) {
 							pickerView.init(mYear, mMonth, mDay, new OnDateChangedListener() {
-				                @Override
+								@Override
 								public void onDateChanged(DatePicker view, int year, int month, int day) {
-				                	if(maxDate > 0 && maxDate > minDate) {
-					                	if(year > maxYear || month > maxMonth && year == maxYear || day > maxDay && year == maxYear && month == maxMonth){
-					                		view.updateDate(maxYear, maxMonth, maxDay);
-					                	}
-				                	}
-				                	if(minDate > 0) {
-					                	if(year < minYear || month < minMonth && year == minYear || day < minDay && year == minYear && month == minMonth) {
-					                		view.updateDate(minYear, minMonth, minDay);
-					                	}
-				                	}
-			                	}
-				            });
+									if(maxDate > 0 && maxDate > minDate) {
+										if(year > maxYear || month > maxMonth && year == maxYear || day > maxDay && year == maxYear && month == maxMonth){
+											view.updateDate(maxYear, maxMonth, maxDay);
+										}
+									}
+									if(minDate > 0) {
+										if(year < minYear || month < minMonth && year == minYear || day < minDay && year == minYear && month == minMonth) {
+											view.updateDate(minYear, minMonth, minDay);
+										}
+									}
+								}
+							});
 						}
 					}
 					dateDialog.show();
