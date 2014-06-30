@@ -32,14 +32,14 @@ phonegap local plugin add https://github.com/Sharinglabs/cordova-plugin-datepick
 </feature>
 
 <feature name="DatePickerPlugin">
-    <param name="android-package" value="com.sharinglabs.datepicker.DatePickerPlugin"/>
+    <param name="android-package" value="com.sharinglabs.cordova.plugin.datepicker.DatePickerPlugin"/>
 </feature>
 ```
 
 3b) If you are using [PhoneGap build service](https://build.phonegap.com/) add to `config.xml`
 
 ```xml
-<gap:plugin name="com.sharinglabs.datepicker" />
+<gap:plugin name="com.sharinglabs.cordova.plugin.datepicker" />
 ```
 
 ## Usage
