@@ -105,7 +105,7 @@ Values: `true` | `false`
 
 Default: `true`
 
-### doneButtonLabel - iOS
+### doneButtonLabel - iOS, Android
 Label of done button.
 
 Typ: String
@@ -119,12 +119,28 @@ Typ: String
 
 Default: `#0000FF`
 
-### cancelButtonLabel - iOS
+### cancelButtonLabel - iOS, Android
 Label of cancel button.
 
 Type: String
 
 Default: `Cancel`
+
+### clearButtonLabel - Android
+Label of clear button.
+
+Type: String
+
+Default: `Clear`
+
+### clearButton - Android
+Show or hide clear button
+
+Type: Boolean
+
+Default: false
+
+Return: "clear" will be returned when the user clicks the button
 
 ### cancelButtonColor - iOS
 Hex color of cancel button.
