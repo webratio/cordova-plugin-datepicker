@@ -126,14 +126,28 @@ Type: String
 
 Default: `Cancel`
 
-### clearButtonLabel - Android
+### cancelButtonColor - iOS
+Hex color of cancel button.
+
+Type: String
+
+Default: `#000000`
+
+### clearButtonLabel - iOS, Android
 Label of clear button.
 
 Type: String
 
 Default: `Clear`
 
-### clearButton - Android
+### clearButtonColor - iOS
+Hex color of clear button.
+
+Type: String
+
+Default: `#FF0000`
+
+### clearButton - iOS, Android
 Show or hide clear button
 
 Type: Boolean
@@ -141,13 +155,6 @@ Type: Boolean
 Default: false
 
 Return: "clear" will be returned when the user clicks the button
-
-### cancelButtonColor - iOS
-Hex color of cancel button.
-
-Type: String
-
-Default: `#000000`
 
 ### x - iOS (iPad only)
 X position of date picker. The position is absolute to the root view of the application.
