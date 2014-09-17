@@ -4,7 +4,7 @@
   
   Copyright (c) Greg Allen 2011
   Additional refactoring by Sam de Freyssinet
-  
+ 
   Rewrite by Jens Krause (www.websector.de)
 
   MIT Licensed
@@ -60,13 +60,18 @@
 }
 
 - (void)doneAction:(id)sender {
-  [self jsDateSelected];
   [self hide];
+  [self jsDateSelected];
+  
 }
-
 
 - (void)cancelAction:(id)sender {
   [self hide];
+}
+
+- (void)clearAction:(id)sender {
+  [self hide];
+  [self jsDateClear];
 }
 
 
@@ -82,6 +87,11 @@
   [super writeJavascript:jsCallback];
 }
 
+- (void)jsDateClear {
+    //NSTimeInterval seconds = [self.datePicker.date timeIntervalSince1970];
+    NSString* jsCallback = [NSString stringWithFormat:@"datePicker._dateSelected(\"clear\");"];
+    [super writeJavascript:jsCallback];
+}
 
 #pragma mark - UIActionSheetDelegate methods
 
@@ -119,6 +129,16 @@
   // cancel button
   UISegmentedControl *cancelButton = [self createCancelButton:options];
   [actionSheet addSubview:cancelButton];
+    
+  BOOL isClearButton = NO;
+  if ([[options objectForKey:@"clearButton"] intValue] == 1) {
+      isClearButton = YES;
+  }
+  if (isClearButton) {
+      UISegmentedControl *clearButton = [self createClearButton:options];
+      [actionSheet addSubview:clearButton];
+  }
+    
   // done button
   UISegmentedControl *doneButton = [self createDoneButton:options];    
   [actionSheet addSubview:doneButton];
@@ -234,6 +254,28 @@
   [button addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventValueChanged];
     
   return button;
+}
+
+- (UISegmentedControl *)createClearButton:(NSMutableDictionary *)options {
+    NSString *label = [options objectForKey:@"clearButtonLabel"];
+    UISegmentedControl *button = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:label]];
+    
+    NSString *tintColorHex = [options objectForKey:@"clearButtonColor"];
+    button.tintColor = [self colorFromHexString: tintColorHex];
+    
+    button.momentary = YES;
+    button.segmentedControlStyle = UISegmentedControlStyleBar;
+    button.apportionsSegmentWidthsByContent = YES;
+    
+    CGSize size = button.bounds.size;
+    CGFloat width = size.width;
+//    CGFloat height = size.height;
+    CGFloat xPos = 160 - (width/2); // 320 == width of DatePicker, 5 == offset to right side hand
+    button.frame = CGRectMake(xPos, 7.0f, size.width, size.height);
+    
+    [button addTarget:self action:@selector(clearAction:) forControlEvents:UIControlEventValueChanged];
+    
+    return button;
 }
 
 - (UISegmentedControl *)createDoneButton:(NSMutableDictionary *)options {

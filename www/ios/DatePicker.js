@@ -67,6 +67,9 @@ DatePicker.prototype.show = function(options, cb) {
         doneButtonColor: '#0000FF',
         cancelButtonLabel: 'Cancel',
         cancelButtonColor: '#000000',
+        clearButtonLabel: 'Clear',
+        clearButtonColor: '#FF0000',
+        clearButton: false,
         x: '0',
         y: '0'
     };
