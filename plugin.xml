@@ -2,12 +2,12 @@
 
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
            id="com.sharinglabs.cordova.plugin.datepicker"
-      version="1.0.2">
+      version="1.1.0">
 
     <name>Datepicker</name>
-    <description>Cordova Datepicker Plugin</description>
+    <description>Cordova Datepicker Plugin for iOS and Android</description>
     <license>MIT</license>
-    <keywords>cordova,datepicker,ios,android</keywords>
+    <keywords>cordova,datepicker,ios,ios7,ios8,android</keywords>
 
     <!-- android -->
     <platform name="android">
@@ -39,7 +39,7 @@
 
         <header-file src="src/ios/DatePicker.h" />
         <source-file src="src/ios/DatePicker.m" />
-
+	<resource-file src="src/ios/DatePicker.xib" />
     </platform>
 
 </plugin>
