@@ -89,7 +89,12 @@ DatePicker.prototype.show = function(options, cb) {
 };
 
 DatePicker.prototype._dateSelected = function(date) {
-    var d = new Date(parseFloat(date) * 1000);
+    var d;
+    if(date === "cancel" || date === "clear") {
+        d = date;
+    } else {
+        d = new Date(parseFloat(date) * 1000);
+    }
     if (this._callback)
         this._callback(d);
 }
