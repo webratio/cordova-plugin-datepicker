@@ -43,7 +43,7 @@ DatePicker.prototype.show = function(options, cb) {
 	//this._callback = cb;
 
 	var callback = function(message) {
-		if ( Object.prototype.toString.call(new Date(message)) === "[object Date]" ) {
+		if ( message == "clear" || message == "cancel" ) {
 			cb(message);
 		} else {
 			cb(new Date(message));
