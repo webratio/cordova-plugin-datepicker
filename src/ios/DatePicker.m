@@ -59,6 +59,8 @@
     //}
     if (isClearButton) {
         [self updateClearButton:options];
+    } else {
+        self.clearButton.hidden = YES;
     }
     
     [self updateDoneButton:options];
@@ -138,6 +140,7 @@
 
 - (IBAction)cancelAction:(id)sender {
     [self hide];
+    [self jsDateCancel];
 }
 
 - (IBAction)clearAction:(id)sender {
@@ -161,6 +164,11 @@
 
 - (void)jsDateClear {
     NSString* jsCallback = [NSString stringWithFormat:@"datePicker._dateSelected(\"clear\");"];
+    [super writeJavascript:jsCallback];
+}
+
+- (void)jsDateCancel {
+    NSString* jsCallback = [NSString stringWithFormat:@"datePicker._dateSelected(\"cancel\");"];
     [super writeJavascript:jsCallback];
 }
 
