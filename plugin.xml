@@ -71,6 +71,15 @@
 
         <source-file src="src/wp8/DateTimePicker.cs"/>
         <source-file src="src/wp8/DateTimePickerTask.cs"/>
+        
+        <!-- WPToolkit -->
+		<framework src="src/wp8/lib/wptoolkit/lib" custom="true" />
+		<framework src="plugins/com.webratio.cordova.plugin.datepicker/lib/Microsoft.Phone.Controls.Toolkit.dll" />
+		<source-file src="src/wp8/lib/wptoolkit/content/Toolkit.Content/ApplicationBar.Add.png" target-dir="../../Toolkit.Content" />
+		<source-file src="src/wp8/lib/wptoolkit/content/Toolkit.Content/ApplicationBar.Cancel.png" target-dir="../../Toolkit.Content" />
+		<source-file src="src/wp8/lib/wptoolkit/content/Toolkit.Content/ApplicationBar.Check.png" target-dir="../../Toolkit.Content" />
+		<source-file src="src/wp8/lib/wptoolkit/content/Toolkit.Content/ApplicationBar.Delete.png" target-dir="../../Toolkit.Content" />
+		<source-file src="src/wp8/lib/wptoolkit/content/Toolkit.Content/ApplicationBar.Select.png" target-dir="../../Toolkit.Content" />
     </platform>
 
 </plugin>
