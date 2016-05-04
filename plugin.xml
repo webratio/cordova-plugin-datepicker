@@ -74,7 +74,7 @@
         
         <!-- WPToolkit -->
 		<framework src="src/wp8/lib/wptoolkit/lib" custom="true" />
-		<framework src="plugins/com.webratio.cordova.plugin.datepicker/lib/Microsoft.Phone.Controls.Toolkit.dll" />
+		<framework src="plugins/cordova-plugin-datepicker/lib/Microsoft.Phone.Controls.Toolkit.dll" />
 		<source-file src="src/wp8/lib/wptoolkit/content/Toolkit.Content/ApplicationBar.Add.png" target-dir="../../Toolkit.Content" />
 		<source-file src="src/wp8/lib/wptoolkit/content/Toolkit.Content/ApplicationBar.Cancel.png" target-dir="../../Toolkit.Content" />
 		<source-file src="src/wp8/lib/wptoolkit/content/Toolkit.Content/ApplicationBar.Check.png" target-dir="../../Toolkit.Content" />
