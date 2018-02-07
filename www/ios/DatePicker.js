@@ -1,10 +1,10 @@
 /**
   Phonegap DatePicker Plugin
   https://github.com/sectore/phonegap3-ios-datepicker-plugin
-  
+
   Copyright (c) Greg Allen 2011
   Additional refactoring by Sam de Freyssinet
-  
+
   Rewrite by Jens Krause (www.websector.de)
 
   MIT Licensed
@@ -19,6 +19,18 @@ function DatePicker() {
 }
 
 /**
+ * Android themes
+ * @todo Avoid error when an Android theme is define...
+ */
+DatePicker.prototype.ANDROID_THEMES = {
+  THEME_TRADITIONAL          : 1, // default
+  THEME_HOLO_DARK            : 2,
+  THEME_HOLO_LIGHT           : 3,
+  THEME_DEVICE_DEFAULT_DARK  : 4,
+  THEME_DEVICE_DEFAULT_LIGHT : 5
+};
+
+/**
  * show - true to show the ad, false to hide the ad
  */
 DatePicker.prototype.show = function(options, cb) {
@@ -30,15 +42,19 @@ DatePicker.prototype.show = function(options, cb) {
     };
 
     var formatDate = function(date){
-      date = date.getFullYear() 
-            + "-" 
-            + padDate(date.getMonth()+1) 
-            + "-" 
-            + padDate(date.getDate()) 
-            + "T" 
-            + padDate(date.getHours()) 
-            + ":" 
-            + padDate(date.getMinutes()) 
+      // date/minDate/maxDate will be string at second time
+      if (!(date instanceof Date)) {
+        date = new Date(date)
+      }
+      date = date.getFullYear()
+            + "-"
+            + padDate(date.getMonth()+1)
+            + "-"
+            + padDate(date.getDate())
+            + "T"
+            + padDate(date.getHours())
+            + ":"
+            + padDate(date.getMinutes())
             + ":00Z";
 
       return date
@@ -56,6 +72,11 @@ DatePicker.prototype.show = function(options, cb) {
         options.maxDate = formatDate(options.maxDate);
     }
 
+    if (options.popoverArrowDirection) {
+        options.popoverArrowDirection = this._popoverArrowDirectionIntegerFromString(options.popoverArrowDirection);
+        console.log('ha options', this, options.popoverArrowDirection);
+    }
+
     var defaults = {
         mode: 'date',
         date: new Date(),
@@ -64,12 +85,15 @@ DatePicker.prototype.show = function(options, cb) {
         minDate: '',
         maxDate: '',
         doneButtonLabel: 'Done',
-        doneButtonColor: '#0000FF',
+        doneButtonColor: '#007AFF',
         cancelButtonLabel: 'Cancel',
-        cancelButtonColor: '#000000',
+        cancelButtonColor: '#007AFF',
+        locale: "NL",
         x: '0',
         y: '0',
-        minuteInterval: 1
+        minuteInterval: 1,
+        popoverArrowDirection: this._popoverArrowDirectionIntegerFromString("any"),
+        locale: "en_US"
     };
 
     for (var key in defaults) {
@@ -78,9 +102,9 @@ DatePicker.prototype.show = function(options, cb) {
     }
     this._callback = cb;
 
-    exec(null, 
-      null, 
-      "DatePicker", 
+    exec(null,
+      null,
+      "DatePicker",
       "show",
       [defaults]
     );
@@ -90,12 +114,27 @@ DatePicker.prototype._dateSelected = function(date) {
     var d = new Date(parseFloat(date) * 1000);
     if (this._callback)
         this._callback(d);
-}
+};
 
 DatePicker.prototype._dateSelectionCanceled = function() {
     if (this._callback)
         this._callback();
-}
+};
+
+DatePicker.prototype._UIPopoverArrowDirection = {
+    "up": 1,
+    "down": 2,
+    "left": 4,
+    "right": 8,
+    "any": 15
+};
+
+DatePicker.prototype._popoverArrowDirectionIntegerFromString = function (string) {
+    if (typeof this._UIPopoverArrowDirection[string] !== "undefined") {
+        return this._UIPopoverArrowDirection[string];
+    }
+    return this._UIPopoverArrowDirection.any;
+};
 
 
 

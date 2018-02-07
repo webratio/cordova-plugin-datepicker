@@ -1,4 +1,4 @@
-﻿cordova.define("com.plugin.datepicker.DatePickerProxy", function(require, exports, module) { /*
+/*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -118,6 +118,7 @@ module.exports = {
 
                     var timePickerSelect = document.createElement("select");
                     timePickerSelect.style.cssText = buttonCSSText;
+                    timePickerSelect.setAttribute("data-tap-disabled","true");
 
                     cell.appendChild(timePickerSelect);
 
@@ -184,7 +185,7 @@ module.exports = {
 
                     var datePickerSelect = document.createElement("select");
                     datePickerSelect.style.cssText = buttonCSSText;
-
+                    datePickerSelect.setAttribute("data-tap-disabled","true");
                     if (i == 0) {
                         datePickerSelect.id = "winjsdatepickerYear";
                         descriptionElement.textContent = "year";
@@ -361,5 +362,3 @@ module.exports = {
 };
 
 require("cordova/exec/proxy").add("DatePickerPlugin",module.exports);
-
-});

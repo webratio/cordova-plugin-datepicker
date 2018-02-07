@@ -11,11 +11,22 @@ function DatePicker() {
 }
 
 /**
+ * Android themes
+ */
+DatePicker.prototype.ANDROID_THEMES = {
+  THEME_TRADITIONAL          : 1, // default
+  THEME_HOLO_DARK            : 2,
+  THEME_HOLO_LIGHT           : 3,
+  THEME_DEVICE_DEFAULT_DARK  : 4,
+  THEME_DEVICE_DEFAULT_LIGHT : 5
+};
+
+/**
  * show - true to show the ad, false to hide the ad
  */
 DatePicker.prototype.show = function(options, cb, errCb) {
 
-	if (options.date) {
+	if (options.date && options.date instanceof Date) {
 		options.date = (options.date.getMonth() + 1) + "/" +
 					   (options.date.getDate()) + "/" +
 					   (options.date.getFullYear()) + "/" +
@@ -28,11 +39,13 @@ DatePicker.prototype.show = function(options, cb, errCb) {
 		date : '',
 		minDate: 0,
 		maxDate: 0,
+		titleText: '',
 		cancelText: '',
 		okText: '',
 		todayText: '',
 		nowText: '',
-		is24Hour: false
+		is24Hour: false,
+    androidTheme : window.datePicker.ANDROID_THEMES.THEME_TRADITIONAL, // Default theme
 	};
 
 	for (var key in defaults) {

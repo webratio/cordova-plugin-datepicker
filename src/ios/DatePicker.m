@@ -36,34 +36,41 @@
 
 - (void)show:(CDVInvokedUrlCommand*)command {
   NSMutableDictionary *options = [command argumentAtIndex:0];
-  if (isIPhone) {
+  //if (isIPhone) {
     [self showForPhone: options];
-  } else {
-    [self showForPad: options];
-  }
+  //} else {
+ //   [self showForPad: options];
+ // }
 }
 
 - (BOOL)showForPhone:(NSMutableDictionary *)options {
   if(!self.datePickerContainer){
     [[NSBundle mainBundle] loadNibNamed:@"DatePicker" owner:self options:nil];
+  } else {
+      self.datePickerContainer.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
   }
   
   [self updateDatePicker:options];
   [self updateCancelButton:options];
   [self updateDoneButton:options];
   
-  UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+  UIInterfaceOrientation deviceOrientation = [UIApplication sharedApplication].statusBarOrientation;
   
   CGFloat width;
   CGFloat height;
   
+  [self.datePickerContainer removeFromSuperview];
+  
   if(UIInterfaceOrientationIsLandscape(deviceOrientation)){
-    width = self.webView.superview.frame.size.height;
-    height= self.webView.superview.frame.size.width;
+    width = self.webView.superview.frame.size.width;
+    height= self.webView.superview.frame.size.height;
   } else {
     width = self.webView.superview.frame.size.width;
     height= self.webView.superview.frame.size.height;
   }
+
+  NSLog(@"%.2f", width);
+  NSLog(@"%.2f", height);
 
   self.datePickerContainer.frame = CGRectMake(0, 0, width, height);
   
@@ -98,7 +105,7 @@
 }
 
 - (void)hide {
-  if (isIPhone) {
+  //if (isIPhone) {
     CGRect frame = CGRectOffset(self.datePickerComponentsContainer.frame,
                                 0,
                                 self.datePickerComponentsContainer.frame.size.height);
@@ -114,9 +121,9 @@
                        [self.datePickerContainer removeFromSuperview];
                      }];
 
-  } else {
-    [self.datePickerPopover dismissPopoverAnimated:YES];
-  }
+ // } else {
+ //   [self.datePickerPopover dismissPopoverAnimated:YES];
+ // }
 }
 
 #pragma mark - Actions
@@ -155,7 +162,7 @@
 #pragma mark - UIPopoverControllerDelegate methods
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-
+  [self jsDateSelected];
 }
 
 #pragma mark - Factory methods
@@ -184,8 +191,10 @@
   
   CGFloat x = [[options objectForKey:@"x"] intValue];
   CGFloat y = [[options objectForKey:@"y"] intValue];
+  UIPopoverArrowDirection arrowDirection = [[options objectForKey:@"popoverArrowDirection"] intValue];
+  
   CGRect anchor = CGRectMake(x, y, 1, 1);
-  [popover presentPopoverFromRect:anchor inView:self.webView.superview  permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+  [popover presentPopoverFromRect:anchor inView:self.webView.superview  permittedArrowDirections:arrowDirection animated:YES];
   
   return popover;
 }
@@ -207,6 +216,8 @@
   NSString *maxDateString = [options objectForKey:@"maxDate"];
   NSString *minuteIntervalString = [options objectForKey:@"minuteInterval"];
   NSInteger minuteInterval = [minuteIntervalString integerValue];
+  NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:[options objectForKey:@"locale"]];
+
   
   if (allowOldDates) {
     self.datePicker.minimumDate = nil;
@@ -243,6 +254,10 @@
 
   if (minuteInterval) {
     self.datePicker.minuteInterval = minuteInterval;
+  }
+
+  if (locale) {
+    [self.datePicker setLocale:locale];
   }
 }
 
