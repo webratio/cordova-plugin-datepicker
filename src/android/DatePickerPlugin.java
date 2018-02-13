@@ -146,8 +146,8 @@ public class DatePickerPlugin extends CordovaPlugin {
 		return new Runnable() {
 			@Override
 			public void run() {
-				final DateSetListener dateSetListener = new DateSetListener(datePickerPlugin, callbackContext, jsonDate);
-				final DatePickerDialog dateDialog = new DatePickerDialog(currentCtx, DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, dateSetListener, jsonDate.year,
+				final DateSetListener dateSetListener = new DateSetListener(datePickerPlugin, theme, callbackContext, jsonDate);
+				final DatePickerDialog dateDialog = new DatePickerDialog(currentCtx, theme, dateSetListener, jsonDate.year,
 						jsonDate.month, jsonDate.day);
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 					prepareDialog(dateDialog, dateSetListener, callbackContext, currentCtx, jsonDate);
